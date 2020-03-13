@@ -1,10 +1,16 @@
-#include <Arduino.h>
+#include "wifi.h"
+
+#include <WiFiManager.h>
+#include <PubSubClient.h>
+
+WIFI wifi;
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Hello World");
+  wifi.setup();
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+
 }
