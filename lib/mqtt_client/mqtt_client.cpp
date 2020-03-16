@@ -23,16 +23,6 @@ void MQTTClient::callback(char* topic, byte* payload, unsigned int length) {
     Serial.print((char)payload[i]);
   }
   Serial.println();
-
-  // Switch on the LED if an 1 was received as first character
-  if ((char)payload[0] == '1') {
-    digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is active low on the ESP-01)
-  } else {
-    digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH
-  }
-
 }
 
 void MQTTClient::assureConnection() {
@@ -42,21 +32,17 @@ void MQTTClient::assureConnection() {
 void MQTTClient::reconnect() {
     
   // Loop until we're reconnected
-  while (!connected()) {
-    Serial.print("Attempting MQTT connection...");
+    while (!connected()) {
+        Serial.print("Attempting MQTT connection...");
 
     if (connect(MQTT_CLIENT_ID)) {
-      Serial.println("connected");
-      // Once connecttry agained, publish an announcement...
-    //   this->client.publish("outTopic", "hello world");
-//       // ... and resubscribe
-//       this->client.subscribe("inTopic");
+        Serial.println("connected");
     } else {
-      Serial.print(" failed, rc=");
-      Serial.print(state());
-      Serial.println(" retry in 3 seconds");
-      // Wait 3 seconds before retrying
-      delay(3000);
+        Serial.print(" failed, rc=");
+        Serial.print(state());
+        Serial.println(" retry in 3 seconds");
+        // Wait 3 seconds before retrying
+        delay(3000);
     }
   }
 }
